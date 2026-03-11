@@ -1,0 +1,25 @@
+# Data - never commit raw data
+data/raw/
+data/processed/
+
+# Kaggle cache
+.cache/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+venv/
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Power BI (large binary - store separately)
+dashboard/*.pbix

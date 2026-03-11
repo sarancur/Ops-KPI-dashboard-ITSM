@@ -1,0 +1,5 @@
+priority,total_tickets,avg_resolution_hrs,sla_breach_rate_pct,avg_csat
+high,19865,31.56,44.07,2.25
+low,39735,55.61,7.85,2.24
+medium,35313,43.28,37.03,2.24
+urgent,5087,26.71,0.0,2.24

@@ -1,0 +1,6 @@
+region,total_tickets,resolved_tickets,avg_resolution_hrs,median_resolution_hrs,sla_breach_count,sla_breach_rate_pct,reopen_rate_pct,avg_csat,resolution_rate_pct
+APAC,19933,10071,45.87,30.48,5179,25.98,4.99,2.23,50.52
+MEA,20151,10089,45.36,30.53,5064,25.13,5.14,2.23,50.07
+LATAM,19959,9880,45.31,29.46,4926,24.68,5.22,2.24,49.5
+EU,19960,10064,44.16,29.49,4915,24.62,5.09,2.25,50.42
+Unknown,19997,10027,44.36,29.85,4865,24.33,4.79,2.25,50.14
