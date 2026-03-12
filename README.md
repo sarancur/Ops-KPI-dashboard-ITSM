@@ -131,7 +131,7 @@ Source: [Synthetic IT Support Tickets - Kaggle](https://www.kaggle.com/datasets/
 ## Author
 
 Saran Chandrasekharan Unnithan
-M.S. Engineering Management, GPA 4.0 - University of Memphis
+M.S. Engineering Management - University of Memphis
 NSF I-Corps Cohort | TTAC Innovation Fellow
 
 [LinkedIn](https://www.linkedin.com/in/sarancur/) | [GitHub](https://github.com/sarancur)
