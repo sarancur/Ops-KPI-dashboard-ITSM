@@ -1,77 +1,73 @@
-# 📊 IT Operations — Process Efficiency Dashboard
+# IT Operations - Process Efficiency Dashboard
 
-> Simulating enterprise-grade KPI reporting and SLA breach analysis across 100,000 IT support tickets — mirroring real-world operations work at HP Inc. across EMEA and Asia-Pacific business units.
+Operations-focused KPI analysis across 100,000 IT support tickets, tracking SLA breach rates, resolution time trends, and root cause breakdowns by region and issue type.
+
+This project replicates the kind of KPI reporting I built at HP Inc., where I managed end-to-end claims reporting across EMEA and Asia-Pacific business units, supporting 200+ stakeholders.
 
 ![Dashboard Preview](visuals/dashboard_preview.png)
 
 ---
 
-## 🧭 Business Context
+## Business Questions
 
-In operations roles at scale, the ability to detect SLA breaches early, identify root causes by region, and present findings to 200+ stakeholders is a core competency. This project replicates that workflow end-to-end:
-
-- Ingesting and cleaning 100K operational records
-- Engineering SLA breach flags using business-defined priority thresholds
-- Building KPI summaries by region and priority tier
-- Validating findings statistically (hypothesis testing)
-- Delivering an interactive Power BI dashboard for stakeholder consumption
-
-This directly mirrors the KPI reporting infrastructure I built at **HP Inc.**, where I managed end-to-end KPI reporting across EMEA and Asia-Pacific, improving reporting accuracy by 20% and reducing stakeholder turnaround time by 30%.
+1. Which regions are breaching SLA targets the most?
+2. Is the breach rate improving or getting worse over time?
+3. What issue types are driving the most breaches, and where?
+4. Does SLA breach actually impact customer satisfaction, and can we prove it statistically?
 
 ---
 
-## 📌 Key Findings
+## Key Findings
 
-| KPI | Value |
-|-----|-------|
-| Total Tickets Analyzed | 100,000 |
-| Average Resolution Time | 45.01 hrs |
-| Overall SLA Breach Rate | 24.95% |
-| Average CSAT Score | 2.24 / 5 |
-| Highest Breach Region | APAC |
-| Top Breach Driver | billing_problem (APAC) |
+| Metric | Value |
+|--------|-------|
+| Total tickets analyzed | 100,000 |
+| Average resolution time | 45.01 hours |
+| Overall SLA breach rate | 24.95% |
+| Average CSAT score | 2.24 out of 5 |
+| Highest breach region | APAC |
+| Top breach driver | Billing problems (APAC) |
 
-### Insights
-- **APAC leads SLA breaches** at ~28%, significantly above the 25% target threshold — flagging a staffing or process gap in that region
-- **Urgent priority tickets paradoxically resolve fastest** (avg ~20 hrs) but low priority tickets average 65+ hrs, suggesting triage is working but backlog management is not
-- **SLA breach directly and significantly reduces CSAT** — confirmed via Welch's t-test (p < 0.05), providing a quantified business case for SLA investment
-- **Billing problems and how-to tickets** are the top breach drivers across all regions — pointing to knowledge base gaps rather than staffing issues
-- **Ticket volume is consistent across years** but breach rate spiked in 2024, indicating a process degradation event worth investigating
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Tool | Why |
-|-------|------|-----|
-| Data Ingestion | `kagglehub` | Programmatic dataset versioning |
-| Data Processing | `pandas`, `numpy` | Industry-standard data wrangling |
-| Analysis | `scipy`, `statsmodels` | Hypothesis testing & statistical validation |
-| Visualization (Python) | `matplotlib`, `seaborn` | EDA and static chart exports |
-| Dashboard | **Power BI** | Enterprise BI standard (used at HP, Oracle, McKinsey) |
-| Version Control | Git + GitHub | Commit history, reproducibility |
+- APAC leads SLA breaches at around 28%, above the 25% target, pointing to a staffing or process gap in that region
+- Billing problems and how-to tickets are the top breach drivers across all regions, suggesting a knowledge base gap rather than a headcount issue
+- Low priority tickets average 65+ hours to resolve, indicating backlog management problems rather than triage failures
+- SLA breach leads to measurably lower CSAT scores, confirmed statistically using the Mann-Whitney U test (p < 0.05), providing a data-backed case for SLA investment
+- Breach rate spiked in 2024 despite stable ticket volume, suggesting a process degradation event worth investigating
 
 ---
 
-## 📁 Project Structure
+## Tools Used
+
+| Layer | Tool |
+|-------|------|
+| Data ingestion | kagglehub |
+| Data processing | pandas, numpy |
+| Statistical analysis | scipy (Mann-Whitney U test) |
+| Python visualizations | matplotlib, seaborn |
+| Interactive dashboard | Power BI Desktop |
+| Version control | Git, GitHub |
+
+Power BI was chosen over Tableau because it is the enterprise standard used at HP, Oracle, and most Fortune 500 operations teams, and maps directly to the job market for ops and BA roles.
+
+---
+
+## Project Structure
 
 ```
-ops-kpi-dashboard-itsm/
+Ops-KPI-dashboard-ITSM/
+│
+├── 01_ops_kpi_dashboard.ipynb       - full analysis pipeline
 │
 ├── data/
-│   ├── raw/                        ← source CSV (gitignored, see dataset link)
 │   └── processed/
-│       ├── itsm_cleaned.csv        ← cleaned dataset with engineered features
-│       ├── kpi_by_region.csv       ← KPI summary by region
-│       ├── kpi_by_priority.csv     ← KPI summary by priority tier
-│       ├── monthly_sla_trend.csv   ← breach rate + volume by month
-│       └── root_cause_breach.csv   ← breach counts by issue type × region
-│
-├── notebooks/
-│   └── 01_ops_kpi_dashboard.ipynb  ← full analysis pipeline
+│       ├── itsm_cleaned.csv         - cleaned dataset with SLA breach flags
+│       ├── kpi_by_region.csv        - KPI summary by region
+│       ├── kpi_by_priority.csv      - KPI summary by priority tier
+│       ├── monthly_sla_trend.csv    - breach rate and volume by month
+│       └── root_cause_breach.csv    - breach counts by issue type and region
 │
 ├── visuals/
-│   ├── dashboard_preview.png       ← Power BI dashboard screenshot
+│   ├── dashboard_preview.png        - Power BI dashboard screenshot
 │   ├── 01_sla_breach_by_region.png
 │   ├── 02_monthly_sla_trend.png
 │   ├── 03_root_cause_heatmap.png
@@ -80,7 +76,7 @@ ops-kpi-dashboard-itsm/
 │   ├── 06_volume_channel_segment.png
 │   └── 07_correlation_matrix.png
 │
-├── dashboard/                      ← Power BI .pbix file
+├── IT Operations - Process Efficiency Dashboard.pdf   - exported dashboard
 ├── requirements.txt
 ├── .gitignore
 └── README.md
@@ -88,95 +84,58 @@ ops-kpi-dashboard-itsm/
 
 ---
 
-## 📊 Dashboard Visuals
+## How to Run
 
-### 1. SLA Breach Rate by Region
-Regional breakdown with color-coded risk tiers (red >40%, orange >25%, green ≤25%) and a 25% target reference line.
-
-### 2. Monthly SLA Breach Trend
-Dual-axis chart overlaying breach rate (line) with ticket volume (bars) — isolates whether breach spikes correlate with volume surges or process failures.
-
-### 3. Root Cause Heatmap — Issue Type × Region
-Matrix with conditional formatting (white → dark red) identifying which issue categories drive the most breaches in each region. Directly actionable for ops leads.
-
-### 4. Resolution Time Distribution by Priority
-Histograms per priority tier with SLA threshold markers and breach % annotations — shows whether the organization is triaging correctly.
-
-### 5. CSAT vs. SLA Compliance
-Side-by-side comparison of average CSAT scores for SLA-met vs. SLA-breached tickets, by priority. Quantifies the customer impact of operational failure.
-
-### 6. Ticket Volume by Channel & Segment
-Stacked bar showing how tickets distribute across channels (email, chat, in-app, web form, phone) by customer segment — useful for resource allocation decisions.
-
-### 7. Correlation Matrix
-Pearson correlation between resolution time, CSAT score, and reopen rate — confirms statistical relationships driving the analysis.
-
----
-
-## ⚙️ How to Run
-
-### Prerequisites
+Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-### Run the Analysis
+Run the notebook:
 ```bash
-jupyter notebook notebooks/01_ops_kpi_dashboard.ipynb
+jupyter notebook 01_ops_kpi_dashboard.ipynb
 ```
-The notebook auto-downloads the dataset via `kagglehub` (requires a free Kaggle account and API token configured at `~/.kaggle/kaggle.json`).
 
-Processed CSVs will export to `data/processed/` and charts to `visuals/` automatically.
+The notebook downloads the dataset automatically via kagglehub. You will need a free Kaggle account with an API token saved at `~/.kaggle/kaggle.json`.
 
-### Power BI Dashboard
-1. Open Power BI Desktop
-2. Get Data → Text/CSV → load all files from `data/processed/`
-3. Open `dashboard/ops_kpi_dashboard.pbix` (or rebuild from scratch using the processed CSVs)
+Processed CSVs export to `data/processed/` and charts save to `visuals/` automatically when you run all cells.
+
+For the Power BI dashboard, open Power BI Desktop and load the files from `data/processed/` via Get Data - Text/CSV.
 
 ---
 
-## 🔬 Statistical Validation
+## Statistical Note
 
-Beyond descriptive analytics, this project includes formal hypothesis testing:
-
-**Test:** Welch's independent t-test  
-**H₀:** CSAT scores are not significantly different between SLA-met and SLA-breached tickets  
-**H₁:** SLA breach significantly lowers CSAT  
-**Result:** p < 0.05 → **Reject H₀**
-
-This provides a statistically validated, quantified business case for SLA compliance investment — the kind of evidence-based recommendation that drives executive decisions.
+I used the Mann-Whitney U test to validate whether SLA-breached tickets have significantly lower CSAT scores compared to tickets where SLA was met. I chose this over a t-test because CSAT is a 1-5 ordinal scale and is not normally distributed. With a p-value below 0.05, the difference is statistically significant.
 
 ---
 
-## 📂 Dataset
+## Dataset
 
-**Source:** [Synthetic IT Support Tickets — Kaggle](https://www.kaggle.com/datasets/ahsanneural/synthetic-it-support-tickets)  
-**Size:** 100,000 records × 20 features  
-**Usability Score:** 9.4 / 10  
+Source: [Synthetic IT Support Tickets - Kaggle](https://www.kaggle.com/datasets/ahsanneural/synthetic-it-support-tickets)
 
-> Note: This is a synthetic dataset modeled on real ITSM workflows, used to simulate the type of claims and operations data encountered in enterprise environments. Actual enterprise data is confidential.
+100,000 records, 20 features, usability score 9.4/10. Synthetic dataset modeled on real ITSM workflows. Used to simulate the type of operational data encountered in enterprise claims management environments, since actual enterprise data is confidential.
 
 ---
 
-## 🔮 What I'd Do With Real Enterprise Data
+## What I Would Do Differently With Real Enterprise Data
 
-- Connect Power BI directly to a **SQL Server or Snowflake** data warehouse instead of flat CSVs
-- Build **automated refresh pipelines** so dashboards update daily without manual exports
-- Add **predictive SLA breach detection** using logistic regression or XGBoost — flag tickets likely to breach before they do
-- Integrate **agent workload data** to correlate staffing levels with breach rates
-- Implement **row-level security** in Power BI so regional managers only see their own data
-
----
-
-## 👤 Author
-
-**Saran Chandrasekharan Unnithan**  
-M.S. Engineering Management (GPA: 4.0) — University of Memphis  
-NSF I-Corps Cohort | TTAC Innovation Fellow  
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-sarancur-0077B5?style=flat&logo=linkedin)](https://www.linkedin.com/in/sarancur/)
-[![GitHub](https://img.shields.io/badge/GitHub-sarancur-181717?style=flat&logo=github)](https://github.com/sarancur)
+- Connect Power BI directly to a SQL Server or Snowflake warehouse instead of flat CSVs
+- Build automated daily refresh pipelines so the dashboard updates without manual exports
+- Add a predictive layer using logistic regression to flag tickets likely to breach SLA before they do
+- Incorporate agent workload data to see whether breach spikes correlate with staffing levels
+- Apply row-level security in Power BI so regional managers only see their own data
 
 ---
 
-*Part of a structured portfolio built to demonstrate enterprise-grade operations analytics capabilities.*
+## Author
+
+Saran Chandrasekharan Unnithan
+M.S. Engineering Management, GPA 4.0 - University of Memphis
+NSF I-Corps Cohort | TTAC Innovation Fellow
+
+[LinkedIn](https://www.linkedin.com/in/sarancur/) | [GitHub](https://github.com/sarancur)
+
+---
+
+Part of a structured portfolio built to demonstrate enterprise-grade operations analytics capabilities.
